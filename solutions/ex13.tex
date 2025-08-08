@@ -1,0 +1,65 @@
+% File: solutions/ex13.tex
+
+\begin{soluzione}{13}
+    L'esercizio richiede di calcolare la DFT di una sequenza composta, $x[n]$, che è la somma di due sequenze più semplici: una costante e una sinusoidale. Sfrutteremo la proprietà di linearità della DFT: $\mathcal{F}\{a \cdot g[n] + b \cdot h[n]\} = a \cdot G_k + b \cdot H_k$.
+    
+    Analizziamo separatamente i due componenti di $x[n]$.
+
+    \subsubsection*{1. DFT del Termine Costante}
+    Il primo termine è una costante: $g[n] = 3$.
+    
+    La DFT di una costante $A$ è un impulso di Dirac discreto all'origine ($k=0$) con un'area (valore) pari a $A \cdot N$.
+    \[
+        \mathcal{F}\{A\} = A \cdot N \cdot \delta[k]
+    \]
+    Nel nostro caso, $A=3$ e $N=32$. Quindi, la trasformata di questo termine è:
+    \[
+        G_k = 3 \cdot 32 \cdot \delta[k] = 96 \cdot \delta[k]
+    \]
+
+    \subsubsection*{2. DFT del Termine Sinusoidale}
+    Il secondo termine è una sinusoide: $h[n] = \sin\left(2\pi \frac{5}{32} n\right)$.
+    
+    Per prima cosa, esprimiamo la funzione seno usando l'identità di Eulero:
+    \[
+        \sin(\theta) = \frac{1}{2j}(e^{j\theta} - e^{-j\theta})
+    \]
+    Applicandola al nostro segnale:
+    \begin{align*}
+        h[n] &= \frac{1}{2j} \left[ e^{j2\pi\frac{5}{32}n} - e^{-j2\pi\frac{5}{32}n} \right] \\
+        &= \frac{1}{2j} e^{j2\pi\frac{5}{32}n} - \frac{1}{2j} e^{j2\pi\frac{-5}{32}n}
+    \end{align*}
+    Ora applichiamo la proprietà della DFT per gli esponenziali complessi, $\mathcal{F}\{A \cdot e^{j2\pi\frac{k_0}{N}n}\} = A \cdot N \cdot \delta[k-k_0]$, a entrambi i termini, con $N=32$.
+    
+    \textbf{Primo esponenziale: $\frac{1}{2j} e^{j2\pi\frac{5}{32}n}$}
+    \begin{itemize}
+        \item L'ampiezza è $A = \frac{1}{2j} = -\frac{j}{2}$.
+        \item La frequenza discreta è $k_0 = 5$.
+        \item La sua DFT è: $(-\frac{j}{2}) \cdot 32 \cdot \delta[k - 5] = -j16 \cdot \delta[k - 5]$.
+    \end{itemize}
+    
+    \textbf{Secondo esponenziale: $-\frac{1}{2j} e^{j2\pi\frac{-5}{32}n}$}
+    \begin{itemize}
+        \item L'ampiezza è $A = -\frac{1}{2j} = \frac{j}{2}$.
+        \item La frequenza discreta è $k_0 = -5$, che per una DFT a 32 punti è equivalente a $k_0 = 32 - 5 = 27$.
+        \item La sua DFT è: $(\frac{j}{2}) \cdot 32 \cdot \delta[k - 27] = j16 \cdot \delta[k - 27]$.
+    \end{itemize}
+    
+    Sommando i due contributi, la DFT del termine sinusoidale è:
+    \[
+        H_k = -j16 \cdot \delta[k - 5] + j16 \cdot \delta[k - 27]
+    \]
+
+    \subsubsection*{3. Risultato Finale}
+    La DFT totale, $X_k$, è la somma di $G_k$ e $H_k$:
+    \[
+        \mathbf{X_k = 96 \cdot \delta[k] - j16 \cdot \delta[k - 5] + j16 \cdot \delta[k - 27]}
+    \]
+    Questo significa che la sequenza $X_k$ è nulla ovunque tranne che per tre valori:
+    \begin{itemize}
+        \item $X_0 = 96$
+        \item $X_5 = -j16$
+        \item $X_{27} = j16$
+    \end{itemize}
+    
+\end{soluzione}

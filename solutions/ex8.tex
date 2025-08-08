@@ -1,0 +1,46 @@
+% File: solutions/ex8.tex
+
+\begin{soluzione}{8}
+    \begin{enumerate}
+        \item \textbf{Frequenza del segnale originale}
+        
+        La forma standard di un segnale cosinusoidale è $A\cos(2\pi f_0 t)$. Confrontando questa forma con il segnale dato, $x(t) = \cos(2\pi \cdot 8t)$, possiamo identificare direttamente la frequenza del segnale originale, $f_0$.
+        \[
+            f_0 = \mathbf{8 \text{ Hz}}
+        \]
+
+        \item \textbf{Frequenza apparente dopo il campionamento (Aliasing)}
+        
+        Per prima cosa, verifichiamo la condizione di Nyquist. La massima frequenza del segnale è $B = f_0 = 8$ Hz. La frequenza di campionamento è $f_s = 10$ Hz.
+        \[
+            f_s < 2B \implies 10 \text{ Hz} < 2 \cdot 8 \text{ Hz} \implies 10 \text{ Hz} < 16 \text{ Hz}
+        \]
+        Poiché la condizione di Nyquist è violata, si verificherà il fenomeno dell'aliasing.
+        
+        Lo spettro del segnale originale, $X(f)$, è composto da due impulsi di Dirac, a $f = +8$ Hz e $f = -8$ Hz.
+        \[
+            X(f) = \frac{1}{2}[\delta(f-8) + \delta(f+8)]
+        \]
+        La ricostruzione ideale osserva solo la banda di frequenze fondamentale (o banda base), che è definita dall'intervallo $[-f_s/2, f_s/2]$. Nel nostro caso, questo intervallo è:
+        \[
+            [-10/2, 10/2] = [-5 \text{ Hz}, 5 \text{ Hz}]
+        \]
+        La frequenza originale di $8$ Hz si trova al di fuori di questa banda. A causa della periodicizzazione dello spettro, la sua replica centrata a $f_s=10$ Hz si "ripiega" all'interno della banda base. La nuova frequenza apparente, $f_a$, può essere calcolata come:
+        \[
+            f_a = f_0 - f_s = 8 \text{ Hz} - 10 \text{ Hz} = -2 \text{ Hz}
+        \]
+        Questo significa che l'impulso che originariamente si trovava a $+8$ Hz, dopo il campionamento, apparirà a $-2$ Hz.
+        
+        Analogamente, per l'impulso originale a $-8$ Hz:
+        \[
+            f_a = -f_0 + f_s = -8 \text{ Hz} + 10 \text{ Hz} = 2 \text{ Hz}
+        \]
+        L'impulso che originariamente si trovava a $-8$ Hz apparirà a $+2$ Hz.
+        
+        Lo spettro ricostruito avrà quindi due impulsi a $\pm 2$ Hz. La frequenza (in valore assoluto) a cui appaiono questi impulsi è:
+        \[
+            |f_a| = \mathbf{2 \text{ Hz}}
+        \]
+
+    \end{enumerate}
+\end{soluzione}

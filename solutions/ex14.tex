@@ -1,0 +1,62 @@
+% File: solutions/ex14.tex
+
+\begin{soluzione}{14}
+    \begin{enumerate}
+        \item \textbf{Espressione della sequenza discreta $x[n]$}
+        
+        La sequenza discreta si ottiene campionando il segnale continuo $x(t)$ a intervalli $t=nT$. I dati del problema sono:
+        \begin{itemize}
+            \item $x(t) = 5 \cdot \text{sinc}(t - 3)$
+            \item $T = 1$ s
+        \end{itemize}
+        L'espressione per $x[n]$ è quindi:
+        \[
+            x[n] = x(n T) = x(n \cdot 1) = x(n) = 5 \cdot \text{sinc}(n - 3)
+        \]
+        La funzione seno cardinale, $\text{sinc}(z)$, ha una proprietà fondamentale: è uguale a 1 quando il suo argomento $z=0$, ed è uguale a 0 per tutti gli altri valori interi di $z$.
+        \[
+            \text{sinc}(z) = 
+            \begin{cases} 
+                1 & \text{se } z = 0 \\
+                0 & \text{se } z \text{ è un intero non nullo}
+            \end{cases}
+        \]
+        Nel nostro caso, l'argomento è $(n-3)$. Questo argomento è zero solo quando $n=3$, e un intero non nullo per tutti gli altri valori interi di $n$.
+        
+        Di conseguenza, la sequenza $x[n]$ è non nulla solo per $n=3$:
+        \begin{itemize}
+            \item Se $n = 3$, allora $x[3] = 5 \cdot \text{sinc}(3-3) = 5 \cdot \text{sinc}(0) = 5 \cdot 1 = 5$.
+            \item Se $n \neq 3$ (con n intero), allora $x[n] = 5 \cdot \text{sinc}(\text{intero} \neq 0) = 5 \cdot 0 = 0$.
+        \end{itemize}
+        La sequenza può quindi essere scritta usando la funzione \textbf{delta di Kronecker}, $\delta[m]$:
+        \[
+            \mathbf{x[n] = 5 \cdot \delta[n - 3]}
+        \]
+
+        \item \textbf{DFT a $N=10$ punti di $x[n]$}
+        
+        Dobbiamo ora calcolare la DFT della sequenza $x[n] = 5\delta[n-3]$ su un blocco di $N=10$ campioni.
+        
+        Ricordiamo la coppia fondamentale della DFT per un delta traslato:
+        \[
+            \mathcal{F}\left\{ A \cdot \delta[n - n_0] \right\} = A \cdot e^{-j2\pi\frac{k n_0}{N}}
+        \]
+        Questa proprietà ci dice che la DFT di un impulso traslato è un esponenziale complesso.
+        
+        Nel nostro caso specifico:
+        \begin{itemize}
+            \item Ampiezza: $A = 5$
+            \item Traslazione: $n_0 = 3$
+            \item Lunghezza della DFT: $N = 10$
+        \end{itemize}
+        Sostituendo questi valori nella formula:
+        \[
+            X_k = 5 \cdot e^{-j2\pi\frac{k \cdot 3}{10}}
+        \]
+        Semplificando l'esponente:
+        \[
+            \mathbf{X_k = 5 \cdot e^{-j\frac{3\pi}{5}k}} \quad \text{per } k = 0, 1, \dots, 9
+        \]
+        Questa è l'espressione analitica della DFT. A differenza degli esercizi precedenti, qui la DFT non è sparsa (cioè non ha zeri), ma è una sequenza di 10 valori complessi il cui modulo è costante e pari a 5, e la cui fase varia linearmente con $k$.
+    \end{enumerate}
+\end{soluzione}

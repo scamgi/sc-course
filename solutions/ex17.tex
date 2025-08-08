@@ -1,0 +1,62 @@
+% File: solutions/ex17.tex
+
+\begin{soluzione}{17}
+    Questo problema richiede di interpretare uno spettro in frequenza normalizzata per dedurre le proprietà del segnale tempo-continuo originale.
+
+    \subsubsection*{1. Frequenza Originale $f_0$}
+    
+    Lo spettro del segnale campionato in frequenza normalizzata, $\tilde{X}(\nu)$, è una serie di impulsi a $\nu = \pm 0.4 \pm k$ per ogni intero $k$.
+    
+    All'interno della banda base ($|\nu| < 0.5$), gli impulsi si trovano a $\nu_a = \pm 0.4$. Questa è la \textbf{frequenza normalizzata apparente}.
+    
+    La relazione tra la frequenza normalizzata apparente $\nu_a$ e la frequenza assoluta apparente $f_a$ è $f_a = \nu_a \cdot f_s$.
+    \[
+        f_a = 0.4 \cdot 50 \text{ Hz} = 20 \text{ Hz}
+    \]
+    Questa frequenza apparente $f_a$ è collegata alla frequenza originale $f_0$ dalla formula dell'aliasing:
+    \[
+        f_a = |f_0 - m \cdot f_s| \quad \text{per un qualche intero } m.
+    \]
+    Quindi, dobbiamo trovare i valori di $f_0$ tali che $|f_0 - m \cdot 50| = 20$. Vediamo i casi più semplici:
+    \begin{itemize}
+        \item \textbf{m = 0:} $|f_0| = 20 \implies f_0 = 20$ Hz.
+        \item \textbf{m = 1:} $|f_0 - 50| = 20 \implies f_0 - 50 = 20$ (dà $f_0 = 70$ Hz) oppure $f_0 - 50 = -20$ (dà $f_0 = 30$ Hz).
+        \item \textbf{m = -1:} $|f_0 + 50| = 20 \implies f_0 = -30$ o $f_0 = -70$, che non sono validi per $f_0 > 0$.
+    \end{itemize}
+    Le tre più basse frequenze originali possibili sono quindi $\mathbf{f_0 = 20 \text{ Hz}}$, $\mathbf{f_0 = 30 \text{ Hz}}$, o $\mathbf{f_0 = 70 \text{ Hz}}$. Senza ulteriori informazioni, non è possibile determinare quale fosse l'unica frequenza di partenza.
+
+    \subsubsection*{2. Spiegazione del Fenomeno dell'Aliasing}
+    
+    Il fenomeno dell'aliasing si verifica se la frequenza di campionamento $f_s$ è inferiore al doppio della frequenza massima del segnale $B=f_0$.
+    \[
+        f_s < 2f_0 \implies 50 < 2f_0
+    \]
+    Valutiamo questa condizione per le possibili frequenze $f_0$ trovate:
+    \begin{itemize}
+        \item Se $f_0 = 20$ Hz: $50 < 2 \cdot 20 \implies 50 < 40$. Falso. In questo caso \textbf{non è avvenuto aliasing}.
+        \item Se $f_0 = 30$ Hz: $50 < 2 \cdot 30 \implies 50 < 60$. Vero. In questo caso \textbf{è avvenuto aliasing}.
+        \item Se $f_0 = 70$ Hz: $50 < 2 \cdot 70 \implies 50 < 140$. Vero. In questo caso \textbf{è avvenuto aliasing}.
+    \end{itemize}
+    In conclusione, l'aliasing è avvenuto se la frequenza originale del segnale era diversa da 20 Hz (ad esempio 30 Hz o 70 Hz).
+
+    \subsubsection*{3. Segnale Ricostruito $x_R(t)$}
+    
+    Il segnale ricostruito dipende \textbf{unicamente} da ciò che il filtro di ricostruzione "vede" nella banda base $[-f_s/2, f_s/2] = [-25, 25]$ Hz.
+    
+    Come abbiamo determinato, in questa banda lo spettro campionato contiene impulsi a $f_a = \pm 20$ Hz.
+    
+    Lo spettro del segnale originale era $X(f) = \frac{2}{2}[\delta(f-f_0) + \delta(f+f_0)]$. Il processo di campionamento scala questo spettro di $1/T = f_s = 50$, mentre il filtro di ricostruzione ideale lo riscala di $T=1/50$. L'effetto netto sull'ampiezza è nullo.
+    
+    Lo spettro del segnale ricostruito $X_R(f)$ è quindi:
+    \[
+        X_R(f) = \frac{2}{2} \left[ \delta(f - 20) + \delta(f + 20) \right]
+    \]
+    Questo è lo spettro di una cosinusoide di ampiezza $A=2$ e frequenza $f=20$ Hz.
+    
+    Antitrasformando, otteniamo il segnale ricostruito:
+    \[
+        \mathbf{x_R(t) = 2\cos(2\pi \cdot 20t) = 2\cos(40\pi t)}
+    \]
+    È importante notare che, indipendentemente da quale fosse la frequenza originale ($20, 30, 70, \dots$ Hz), il segnale ricostruito sarà sempre una cosinusoide a 20 Hz a causa di come funziona il processo di campionamento e ricostruzione.
+    
+\end{soluzione}

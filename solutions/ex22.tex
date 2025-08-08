@@ -1,0 +1,66 @@
+% File: solutions/ex22.tex
+
+\begin{soluzione}{22}
+    \begin{enumerate}
+        \item \textbf{Scrivere $x(t)$ come somma di sinusoidi}
+        
+        Per semplificare il segnale, utilizziamo la formula di prostaferesi (o del prodotto-somma) per il coseno:
+        \[
+            \cos(A)\cos(B) = \frac{1}{2}[\cos(A-B) + \cos(A+B)]
+        \]
+        Nel nostro caso, $A = 30\pi t$ e $B = 10\pi t$. Applicando la formula:
+        \begin{align*}
+            x(t) &= 4 \cdot \frac{1}{2} [\cos(30\pi t - 10\pi t) + \cos(30\pi t + 10\pi t)] \\
+            &= 2 [\cos(20\pi t) + \cos(40\pi t)] \\
+            &= \mathbf{2\cos(20\pi t) + 2\cos(40\pi t)}
+        \end{align*}
+        Il segnale è quindi la somma di due cosinusoidi, una con frequenza $f_1 = 10$ Hz e l'altra con frequenza $f_2 = 20$ Hz. La massima frequenza del segnale è $B=20$ Hz.
+
+        \item \textbf{Espressione della sequenza discreta $x[n]$}
+        
+        Il segnale viene campionato con $f_s = 50$ Hz. L'intervallo di campionamento è $T = 1/f_s = 1/50 = 0.02$ s. La condizione di Nyquist ($50 \ge 2 \cdot 20$) è soddisfatta, quindi non c'è aliasing.
+        
+        Sostituiamo $t = nT = n/50$ nell'espressione semplificata di $x(t)$:
+        \begin{align*}
+            x[n] &= 2\cos\left(20\pi \frac{n}{50}\right) + 2\cos\left(40\pi \frac{n}{50}\right) \\
+            &= 2\cos\left(\frac{2\pi}{5}n\right) + 2\cos\left(\frac{4\pi}{5}n\right)
+        \end{align*}
+        Questa è l'espressione della sequenza campionata.
+
+        \item \textbf{DFT a 50 punti della sequenza, $X_k$}
+        
+        Per calcolare la DFT, analizziamo i due termini separatamente. L'obiettivo è scriverli nella forma $A\cos(2\pi \frac{k_0}{N}n)$ con $N=50$.
+        
+        \textbf{Primo termine: $2\cos\left(\frac{2\pi}{5}n\right)$}
+        \begin{itemize}
+            \item Dobbiamo trovare $k_1$ tale che $\frac{k_1}{N} = \frac{1}{5}$.
+            \item $\frac{k_1}{50} = \frac{1}{5} \implies k_1 = \frac{50}{5} = 10$.
+            \item Questo termine è $2\cos(2\pi \frac{10}{50}n)$.
+        \end{itemize}
+        
+        \textbf{Secondo termine: $2\cos\left(\frac{4\pi}{5}n\right)$}
+        \begin{itemize}
+            \item Dobbiamo trovare $k_2$ tale che $\frac{k_2}{N} = \frac{2}{5}$ (notare il $4\pi$ che diventa $2 \cdot 2\pi$).
+            \item $\frac{k_2}{50} = \frac{2}{5} \implies k_2 = \frac{2 \cdot 50}{5} = 20$.
+            \item Questo termine è $2\cos(2\pi \frac{20}{50}n)$.
+        \end{itemize}
+        
+        Ora applichiamo la proprietà della DFT di una cosinusoide, $\mathcal{F}\{A\cos(2\pi \frac{k_0}{N}n)\} = \frac{AN}{2}(\delta[k-k_0] + \delta[k-(N-k_0)])$, a entrambi.
+        L'ampiezza degli impulsi della DFT sarà $\frac{AN}{2} = \frac{2 \cdot 50}{2} = 50$.
+        
+        \begin{itemize}
+            \item La DFT del primo termine (con $k_1=10$) produce impulsi a $k=10$ e $k=50-10=40$.
+            \item La DFT del secondo termine (con $k_2=20$) produce impulsi a $k=20$ e $k=50-20=30$.
+        \end{itemize}
+        
+        Sfruttando la linearità, la DFT totale $X_k$ è la somma delle DFT dei singoli termini:
+        \[
+            \mathbf{X_k = 50(\delta[k-10] + \delta[k-40]) + 50(\delta[k-20] + \delta[k-30])}
+        \]
+        La DFT a 50 punti è quindi una sequenza nulla ovunque tranne che per quattro valori:
+        \[
+            X_{10} = 50, \quad X_{20} = 50, \quad X_{30} = 50, \quad X_{40} = 50
+        \]
+        
+    \end{enumerate}
+\end{soluzione}

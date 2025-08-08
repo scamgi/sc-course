@@ -1,0 +1,52 @@
+% File: solutions/ex5.tex
+
+\begin{soluzione}{5}
+    Questo esercizio illustra il processo di ricostruzione di un segnale a partire dal suo spettro campionato, in condizioni ideali (senza aliasing).
+
+    \begin{enumerate}
+        \item \textbf{Caratteristiche del Filtro di Ricostruzione Ideale $H_R(f)$}
+        
+        Per ricostruire perfettamente il segnale originale, il filtro deve compiere due azioni:
+        \begin{enumerate}
+            \item \textbf{Isolare la replica centrale:} Deve eliminare tutte le repliche dello spettro centrate a $f = \pm f_s, \pm 2f_s, \dots$, conservando solo la replica centrata a $f=0$. Poiché la replica centrale si estende da $-100$ Hz a $100$ Hz e la successiva inizia a $200$ Hz, il filtro deve avere una banda passante che includa $[-100, 100]$ e si annulli prima di $\pm 200$ Hz. La scelta standard è un filtro passa-basso ideale con una banda pari all'intervallo di Nyquist.
+            \item \textbf{Riscalare l'ampiezza:} Il processo di campionamento ha scalato l'ampiezza dello spettro di un fattore $1/T = f_s$. Il filtro deve avere un guadagno pari a $T$ per annullare questo effetto e ripristinare l'ampiezza originale.
+        \end{enumerate}
+        
+        Quindi, le caratteristiche del filtro sono:
+        \begin{itemize}
+            \item \textbf{Tipo:} Filtro passa-basso ideale.
+            \item \textbf{Frequenza di taglio ($f_c$):} $f_c = f_s/2 = 300/2 = 150$ Hz.
+            \item \textbf{Guadagno (nella banda passante):} $T = 1/f_s = 1/300$.
+        \end{itemize}
+        Matematicamente, il filtro è descritto da una funzione rettangolare:
+        \[
+            \mathbf{H_R(f) = T \cdot \text{rect}\left(\frac{f}{f_s}\right) = \frac{1}{300} \text{rect}\left(\frac{f}{300}\right)}
+        \]
+
+        \item \textbf{Espressione dello Spettro Ricostruito $X_R(f)$}
+        
+        Lo spettro ricostruito si ottiene moltiplicando lo spettro campionato per la risposta in frequenza del filtro di ricostruzione:
+        \[
+            X_R(f) = \tilde{X}(f) \cdot H_R(f) = \left( \frac{1}{T} \sum_{k=-\infty}^{\infty} X(f - k f_s) \right) \cdot \left( T \cdot \text{rect}\left(\frac{f}{f_s}\right) \right)
+        \]
+        I termini $T$ e $1/T$ si annullano. La funzione $\text{rect}\left(\frac{f}{f_s}\right)$ è non nulla solo nell'intervallo $|f| < f_s/2$. In questo intervallo, l'unica replica di $X(f)$ presente nella sommatoria è quella per $k=0$ (la replica centrale). Tutte le altre repliche (per $k \neq 0$) cadono al di fuori della banda passante del filtro e vengono quindi eliminate.
+        
+        Di conseguenza, il risultato della moltiplicazione è semplicemente la replica centrale dello spettro, riscalata correttamente, che è identica allo spettro del segnale originale:
+        \[
+            \mathbf{X_R(f) = X(f)}
+        \]
+        
+        \item \textbf{Espressione del Segnale Ricostruito nel Tempo $x_R(t)$}
+        
+        Il segnale nel tempo si ottiene tramite l'antitrasformata di Fourier del suo spettro. Poiché abbiamo dimostrato che lo spettro ricostruito $X_R(f)$ è identico allo spettro originale $X(f)$, anche i segnali nel tempo corrispondenti devono essere identici.
+        \[
+            x_R(t) = \mathcal{F}^{-1}\{X_R(f)\} = \mathcal{F}^{-1}\{X(f)\} = x(t)
+        \]
+        Il segnale ricostruito è quindi:
+        \[
+            \mathbf{x_R(t) = x(t)}
+        \]
+        Questo conferma che, in assenza di aliasing, il campionamento e la successiva ricostruzione ideale permettono di recuperare il segnale di partenza senza alcuna distorsione.
+
+    \end{enumerate}
+\end{soluzione}

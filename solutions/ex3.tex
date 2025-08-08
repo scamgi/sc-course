@@ -1,0 +1,42 @@
+% File: solutions/ex3.tex
+
+\begin{soluzione}{3}
+    Per risolvere questo esercizio è necessario applicare il \textbf{Teorema del Campionamento di Nyquist-Shannon}. Questo teorema stabilisce la condizione minima per campionare un segnale a banda limitata in modo da poterlo ricostruire perfettamente, senza perdita di informazione (aliasing).
+
+    Dal testo del problema, sappiamo che il segnale $x(t)$ ha una banda limitata. La sua massima componente in frequenza, che indichiamo con $B$, è:
+    \[
+        B = 150 \text{ Hz}
+    \]
+
+    \begin{enumerate}
+        \item \textbf{Minima frequenza di campionamento ($f_{s, \text{min}}$)}
+        
+        Il teorema afferma che la frequenza di campionamento $f_s$ deve essere almeno il doppio della massima frequenza del segnale. Matematicamente, la condizione per evitare aliasing è:
+        \[
+            f_s \ge 2B
+        \]
+        La minima frequenza di campionamento possibile, nota come \textit{frequenza di Nyquist}, si ha quando vale l'uguaglianza:
+        \[
+            f_{s, \text{min}} = 2B
+        \]
+        Sostituendo il valore di $B$:
+        \[
+            f_{s, \text{min}} = 2 \cdot 150 \text{ Hz} = \mathbf{300 \text{ Hz}}
+        \]
+        
+        \item \textbf{Massimo intervallo di campionamento ($T_{\text{max}}$)}
+        
+        L'intervallo di campionamento $T$ è l'inverso della frequenza di campionamento $f_s$:
+        \[
+            T = \frac{1}{f_s}
+        \]
+        Per trovare l'intervallo di campionamento \textit{massimo} ($T_{\text{max}}$) che ancora evita l'aliasing, dobbiamo usare la frequenza di campionamento \textit{minima} ($f_{s, \text{min}}$) calcolata in precedenza. Un intervallo più lungo (corrispondente a una frequenza più bassa) causerebbe aliasing.
+        
+        Quindi:
+        \[
+            T_{\text{max}} = \frac{1}{f_{s, \text{min}}} = \frac{1}{300 \text{ Hz}} = \mathbf{\frac{1}{300} \text{ s}}
+        \]
+        Che è circa $3.33$ millisecondi.
+
+    \end{enumerate}
+\end{soluzione}

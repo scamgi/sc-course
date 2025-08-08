@@ -1,0 +1,45 @@
+% File: solutions/ex25.tex
+
+\begin{soluzione}{25}
+    \begin{enumerate}
+        \item \textbf{Campionamento e Aliasing}
+        
+        \textbf{No}, il segnale ricostruito $x_R(t)$ non sarà identico a quello originale.
+        
+        \textbf{Motivazione:} Per ricostruire perfettamente un segnale, la frequenza di campionamento $f_s$ deve soddisfare la condizione di Nyquist: $f_s \ge 2B$. In questo caso, la banda del segnale è $B=5$ kHz, quindi la frequenza di Nyquist è $2B = 10$ kHz. Poiché si campiona a $f_s = 8$ kHz, che è inferiore a $10$ kHz, si verifica il fenomeno dell'aliasing. Le repliche spettrali si sovrappongono, corrompendo irrimediabilmente l'informazione del segnale originale.
+
+        \item \textbf{DFT di una Sinusoide}
+        
+        Il numero minimo di campioni $N$ è \textbf{5}.
+        
+        \textbf{Motivazione:} Affinché la DFT di una sequenza sinusoidale $A\cos(2\pi \frac{k_0}{N}n)$ sia composta da due soli impulsi (senza dispersione spettrale), la sequenza deve contenere un numero intero di cicli all'interno della finestra di $N$ campioni. Questo accade quando l'argomento può essere scritto esattamente nella forma $\frac{k_0}{N}$ per un $k_0$ intero.
+        
+        Nella sequenza $x[n] = \cos(2\pi \frac{n}{5})$, il termine di frequenza normalizzata è $\frac{1}{5}$. Affinché $\frac{k_0}{N} = \frac{1}{5}$, il più piccolo valore intero di $N$ per cui $k_0$ è anch'esso intero è $N=5$ (che dà $k_0=1$). Per $N<5$, non sarebbe possibile trovare un $k_0$ intero.
+
+        \item \textbf{Frequenze Originali Possibili}
+        
+        Le due più basse frequenze possibili sono $\mathbf{f_0 = 1 \text{ kHz}}$ e $\mathbf{f_0 = 9 \text{ kHz}}$.
+        
+        \textbf{Motivazione:} La frequenza apparente $f_a = 1$ kHz è legata alla frequenza originale $f_0$ dalla formula dell'aliasing: $f_a = |f_0 - m \cdot f_s|$ per $m$ intero.
+        
+        Dobbiamo risolvere $|f_0 - m \cdot 10| = 1$ per $f_0 > 0$.
+        \begin{itemize}
+            \item Per $m=0$: $|f_0| = 1 \implies f_0 = 1$ kHz. (Nessun aliasing).
+            \item Per $m=1$: $|f_0 - 10| = 1$. Questo dà due soluzioni: $f_0 - 10 = 1 \implies f_0 = 11$ kHz, oppure $f_0 - 10 = -1 \implies f_0 = 9$ kHz.
+        \end{itemize}
+        Le due soluzioni più basse e positive sono quindi 1 kHz e 9 kHz.
+        
+        \item \textbf{DFT di $x[n](-1)^n$}
+        
+        La DFT di $y[n]$ è una \textbf{versione traslata circolarmente} della DFT originale: $\mathbf{Y_k = X_{k - N/2}}$.
+        
+        \textbf{Motivazione:} La moltiplicazione per un esponenziale complesso nel dominio del tempo corrisponde a uno spostamento (shift) circolare nel dominio della frequenza. Usando il suggerimento:
+        \[
+            y[n] = x[n](-1)^n = x[n] \cdot e^{j2\pi \frac{N/2}{N} n}
+        \]
+        Questa è una modulazione con una frequenza discreta pari a $N/2$. La proprietà di modulazione della DFT afferma che $\mathcal{F}\{x[n] \cdot e^{j2\pi\frac{k_0}{N}n}\} = X_{k-k_0}$.
+        
+        Nel nostro caso, $k_0 = N/2$, quindi la DFT di $y[n]$ è $X_{k - N/2}$. L'operazione "ribalta" lo spettro, scambiando le basse frequenze con le alte.
+        
+    \end{enumerate}
+\end{soluzione}

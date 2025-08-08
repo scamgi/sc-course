@@ -1,0 +1,63 @@
+% File: solutions/ex19.tex
+
+\begin{soluzione}{19}
+    Questo problema si risolve in modo efficiente lavorando interamente nel dominio della frequenza e applicando la linearità della Trasformata di Fourier Inversa (IDFT).
+
+    \subsubsection*{1. Calcolare la DFT originale, $X_k$}
+    Per prima cosa, determiniamo la DFT della sequenza $x[n]$. La sequenza è nella forma standard $A\cos(2\pi \frac{k_0}{N}n)$ con:
+    \begin{itemize}
+        \item $A = 2$
+        \item $N = 8$
+        \item $k_0 = 2$
+    \end{itemize}
+    La sua DFT è data da due impulsi:
+    \[
+        X_k = \frac{AN}{2} \left( \delta[k-k_0] + \delta[k-(N-k_0)] \right)
+    \]
+    Calcoliamo l'ampiezza degli impulsi: $\frac{AN}{2} = \frac{2 \cdot 8}{2} = 8$.
+    
+    L'indice coniugato è $N-k_0 = 8-2 = 6$.
+    
+    Quindi, la DFT della sequenza originale è:
+    \[
+        X_k = 8 \cdot \delta[k-2] + 8 \cdot \delta[k-6]
+    \]
+    Questo ci dice che l'unico campione non nullo che ci interessa è $X_2 = 8$.
+
+    \subsubsection*{2. Determinare la DFT modificata, $Y_k$}
+    La nuova DFT, $Y_k$, si ottiene sottraendo il termine $X_2 \cdot \delta[k-2]$ da $X_k$.
+    \[
+        Y_k = X_k - X_2 \cdot \delta[k-2]
+    \]
+    Sostituiamo le espressioni che abbiamo trovato:
+    \begin{align*}
+        Y_k &= \left( 8 \cdot \delta[k-2] + 8 \cdot \delta[k-6] \right) - (8) \cdot \delta[k-2] \\
+        &= 8 \cdot \delta[k-2] - 8 \cdot \delta[k-2] + 8 \cdot \delta[k-6] \\
+        &= 8 \cdot \delta[k-6]
+    \end{align*}
+    La DFT modificata, $Y_k$, consiste in un singolo impulso all'indice $k=6$ con ampiezza 8.
+
+    \subsubsection*{3. Calcolare la Sequenza nel Tempo, $y[n]$}
+    Ora dobbiamo trovare la sequenza $y[n]$ la cui DFT è $Y_k = 8 \cdot \delta[k-6]$. Usiamo la Trasformata di Fourier Inversa (IDFT).
+    
+    Ricordiamo la coppia notevole per la IDFT di un impulso:
+    \[
+        \mathcal{F}^{-1}\left\{ C \cdot \delta[k-k_0] \right\} = \frac{C}{N} e^{j2\pi\frac{k_0 n}{N}}
+    \]
+    Nel nostro caso:
+    \begin{itemize}
+        \item $C = 8$
+        \item $k_0 = 6$
+        \item $N = 8$
+    \end{itemize}
+    Sostituendo questi valori, otteniamo l'espressione per $y[n]$:
+    \[
+        y[n] = \frac{8}{8} e^{j2\pi\frac{6n}{8}}
+    \]
+    Semplificando:
+    \[
+        \mathbf{y[n] = e^{j\frac{3\pi}{2}n}}
+    \]
+    Questa è l'espressione finale per la sequenza nel tempo. A differenza della sequenza originale, che era reale (un coseno), la sequenza risultante è complessa, poiché il suo spettro ($Y_k$) non possiede la simmetria Hermitiana (cioè non ha un impulso coniugato in $k=N-6=2$).
+    
+\end{soluzione}

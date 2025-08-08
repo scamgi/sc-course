@@ -1,0 +1,52 @@
+% File: solutions/ex12.tex
+
+\begin{soluzione}{12}
+    Questo esercizio dimostra come calcolare la DFT di una sinusoide campionata in modo efficiente, senza ricorrere alla sommatoria, ma sfruttando le proprietà fondamentali della trasformata.
+
+    \subsubsection*{1. Applicazione dell'Identità di Eulero}
+    Il primo passo è decomporre la funzione coseno in due esponenziali complessi, come suggerito dal testo.
+    \[
+        x[n] = 4 \cos\left(2\pi \frac{3}{16} n\right)
+    \]
+    Usando l'identità $\cos(\theta) = \frac{1}{2}(e^{j\theta} + e^{-j\theta})$, otteniamo:
+    \begin{align*}
+        x[n] &= 4 \cdot \frac{1}{2} \left[ e^{j2\pi\frac{3}{16}n} + e^{-j2\pi\frac{3}{16}n} \right] \\
+        &= 2 \cdot e^{j2\pi\frac{3}{16}n} + 2 \cdot e^{j2\pi\frac{-3}{16}n}
+    \end{align*}
+    La sequenza $x[n]$ è quindi la somma di due esponenziali complessi.
+
+    \subsubsection*{2. Applicazione della Proprietà della DFT}
+    Ricordiamo la coppia fondamentale della DFT per un esponenziale complesso:
+    \[
+        \mathcal{F}\left\{ A \cdot e^{j2\pi\frac{k_0}{N}n} \right\} = A \cdot N \cdot \delta[k - k_0]
+    \]
+    Questa proprietà ci dice che la DFT di un esponenziale complesso di "frequenza discreta" $k_0$ è un singolo impulso di Dirac discreto (un valore non nullo) all'indice $k = k_0$, con un'area (o valore) pari a $A \cdot N$.
+    
+    Applichiamo questa proprietà a entrambi i termini della nostra sequenza, ricordando che $N=16$:
+    
+    \textbf{Primo termine: $2 \cdot e^{j2\pi\frac{3}{16}n}$}
+    \begin{itemize}
+        \item Qui, l'ampiezza è $A=2$ e la frequenza discreta è $k_0=3$.
+        \item La sua DFT è: $2 \cdot 16 \cdot \delta[k - 3] = 32 \cdot \delta[k - 3]$.
+    \end{itemize}
+    
+    \textbf{Secondo termine: $2 \cdot e^{j2\pi\frac{-3}{16}n}$}
+    \begin{itemize}
+        \item Qui, l'ampiezza è $A=2$ e la frequenza discreta è $k_0=-3$.
+        \item L'indice $k$ della DFT è periodico di periodo $N$. Quindi, un indice di $-3$ è equivalente a $N-3$.
+        \item $k_0 = -3 \equiv 16 - 3 = 13$.
+        \item La sua DFT è: $2 \cdot 16 \cdot \delta[k - 13] = 32 \cdot \delta[k - 13]$.
+    \end{itemize}
+    
+    \subsubsection*{3. Risultato Finale}
+    Grazie alla linearità della DFT, la trasformata della somma è la somma delle trasformate. Pertanto, sommiamo i due risultati ottenuti:
+    \[
+        \mathbf{X_k = 32 \cdot \delta[k - 3] + 32 \cdot \delta[k - 13]}
+    \]
+    Questo significa che la DFT $X_k$ è una sequenza di 16 punti che è zero ovunque, tranne che per due punti:
+    \begin{itemize}
+        \item $X_3 = 32$
+        \item $X_{13} = 32$
+    \end{itemize}
+    
+\end{soluzione}

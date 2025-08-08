@@ -1,0 +1,65 @@
+% File: solutions/ex18.tex
+
+\begin{soluzione}{18}
+    \begin{enumerate}
+        \item \textbf{Trasformata di Fourier di $x(t)$}
+        
+        Il segnale $x(t)$ è il prodotto di due segnali nel dominio del tempo:
+        \[
+            x(t) = g(t) \cdot h(t)
+        \]
+        dove $g(t) = \text{sinc}(10t)$ e $h(t) = \text{sinc}(20t)$.
+        
+        La proprietà di moltiplicazione della Trasformata di Fourier afferma che la trasformata di un prodotto nel tempo è la convoluzione delle trasformate in frequenza:
+        \[
+            X(f) = \mathcal{F}\{g(t) \cdot h(t)\} = G(f) * H(f)
+        \]
+        Per prima cosa, troviamo le trasformate $G(f)$ e $H(f)$ usando la coppia notevole $\mathcal{F}\{A \cdot \text{sinc}(2Bt)\} = \frac{A}{2B} \text{rect}(\frac{f}{2B})$.
+        \begin{itemize}
+            \item Per $g(t) = \text{sinc}(10t)$, abbiamo $A=1$ e $2B=10 \implies B=5$.
+            La sua trasformata è $G(f) = \frac{1}{10} \text{rect}\left(\frac{f}{10}\right)$. Questo è un rettangolo di altezza $1/10$ che si estende da $-5$ Hz a $5$ Hz.
+            
+            \item Per $h(t) = \text{sinc}(20t)$, abbiamo $A=1$ e $2B=20 \implies B=10$.
+            La sua trasformata è $H(f) = \frac{1}{20} \text{rect}\left(\frac{f}{20}\right)$. Questo è un rettangolo di altezza $1/20$ che si estende da $-10$ Hz a $10$ Hz.
+        \end{itemize}
+        
+        Ora dobbiamo calcolare la convoluzione tra questi due rettangoli:
+        \[
+            \mathbf{X(f) = \left[ \frac{1}{10} \text{rect}\left(\frac{f}{10}\right) \right] * \left[ \frac{1}{20} \text{rect}\left(\frac{f}{20}\right) \right]}
+        \]
+        Il risultato della convoluzione di due rettangoli centrati nell'origine è una funzione a forma di trapezio.
+        
+        \item \textbf{Banda del segnale $x(t)$}
+        
+        La banda di un segnale risultante dalla convoluzione di due segnali, $X(f) = G(f) * H(f)$, è la \textbf{somma} delle bande dei segnali originali.
+        
+        Siano $B_g$ e $B_h$ le massime frequenze dei segnali $G(f)$ e $H(f)$ rispettivamente:
+        \begin{itemize}
+            \item $B_g = 5$ Hz
+            \item $B_h = 10$ Hz
+        \end{itemize}
+        La massima frequenza (la banda) del segnale risultante $X(f)$ è:
+        \[
+            B_x = B_g + B_h = 5 \text{ Hz} + 10 \text{ Hz} = \mathbf{15 \text{ Hz}}
+        \]
+        Lo spettro $X(f)$ a forma di trapezio sarà quindi non nullo nell'intervallo $[-15, 15]$ Hz.
+        
+        \item \textbf{Minima frequenza di campionamento}
+        
+        Per campionare il segnale $x(t)$ senza introdurre aliasing, dobbiamo rispettare la condizione del Teorema di Nyquist:
+        \[
+            f_s \ge 2 B_x
+        \]
+        Dove $B_x$ è la massima frequenza del segnale $x(t)$ che abbiamo appena calcolato.
+        
+        Sostituendo il valore di $B_x$:
+        \[
+            f_s \ge 2 \cdot 15 \text{ Hz}
+        \]
+        La minima frequenza di campionamento è quindi:
+        \[
+            f_{s, \text{min}} = \mathbf{30 \text{ Hz}}
+        \]
+        
+    \end{enumerate}
+\end{soluzione}

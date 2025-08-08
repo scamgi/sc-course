@@ -1,0 +1,65 @@
+% File: solutions/ex11.tex
+
+\begin{soluzione}{11}
+    L'obiettivo è calcolare la Trasformata di Fourier Discreta (DFT) a $N=4$ punti della sequenza $x[n] = \{1, 0, -1, 0\}$.
+    
+    \subsubsection*{1. Impostazione della Formula}
+    La formula generale della DFT è:
+    \[
+        X_k = \sum_{n=0}^{N-1} x[n] e^{-j2\pi\frac{kn}{N}}
+    \]
+    Sostituendo $N=4$, la formula per questo specifico caso diventa:
+    \[
+        X_k = \sum_{n=0}^{3} x[n] e^{-j2\pi\frac{kn}{4}} = \sum_{n=0}^{3} x[n] e^{-j\frac{\pi}{2}kn}
+    \]
+    Poiché $x[1]$ e $x[3]$ sono nulli, la sommatoria si semplifica notevolmente. Espandendo la somma:
+    \begin{align*}
+        X_k &= x[0] \cdot e^{-j\frac{\pi}{2}k(0)} + x[1] \cdot e^{-j\frac{\pi}{2}k(1)} + x[2] \cdot e^{-j\frac{\pi}{2}k(2)} + x[3] \cdot e^{-j\frac{\pi}{2}k(3)} \\
+        &= (1) \cdot e^{0} + (0) \cdot e^{-j\frac{\pi}{2}k} + (-1) \cdot e^{-j\pi k} + (0) \cdot e^{-j\frac{3\pi}{2}k} \\
+        &= 1 - e^{-j\pi k}
+    \end{align*}
+    Useremo questa formula semplificata per calcolare i quattro valori di $X_k$.
+
+    \subsubsection*{2. Calcolo dei Componenti della DFT}
+    
+    \textbf{Per k = 0 (Componente DC):}
+    \[
+        X_0 = 1 - e^{-j\pi(0)} = 1 - e^{0} = 1 - 1 = \mathbf{0}
+    \]
+    (Questo corrisponde alla somma dei campioni: $1+0-1+0 = 0$).
+    
+    \textbf{Per k = 1:}
+    \[
+        X_1 = 1 - e^{-j\pi(1)} = 1 - e^{-j\pi}
+    \]
+    Ricordando che $e^{-j\pi} = \cos(-\pi) + j\sin(-\pi) = -1$.
+    \[
+        X_1 = 1 - (-1) = \mathbf{2}
+    \]
+    
+    \textbf{Per k = 2:}
+    \[
+        X_2 = 1 - e^{-j\pi(2)} = 1 - e^{-j2\pi}
+    \]
+    Ricordando che $e^{-j2\pi} = \cos(-2\pi) + j\sin(-2\pi) = 1$.
+    \[
+        X_2 = 1 - 1 = \mathbf{0}
+    \]
+    
+    \textbf{Per k = 3:}
+    \[
+        X_3 = 1 - e^{-j\pi(3)} = 1 - e^{-j3\pi}
+    \]
+    Ricordando che $e^{-j3\pi} = \cos(-3\pi) + j\sin(-3\pi) = -1$.
+    \[
+        X_3 = 1 - (-1) = \mathbf{2}
+    \]
+    (Nota: per una sequenza reale, $X_{N-k} = X_k^*$. Qui $X_3 = X_{4-1} = X_1^*$. Poiché $X_1=2$ è reale, $X_1^*=2$, il che conferma il nostro calcolo).
+    
+    \subsubsection*{3. Risultato Finale}
+    La DFT della sequenza data è:
+    \[
+        \mathbf{X_k = \{0, 2, 0, 2\}}
+    \]
+
+\end{soluzione}

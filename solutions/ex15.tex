@@ -1,0 +1,75 @@
+% File: solutions/ex15.tex
+
+\begin{soluzione}{15}
+    Questo esercizio ci guida attraverso il processo completo che parte da un segnale tempo-continuo e arriva alla sua DFT, evidenziando le relazioni tra le frequenze e i parametri di campionamento.
+
+    \begin{enumerate}
+        \item \textbf{Intervallo di campionamento $T$}
+        
+        L'intervallo di campionamento $T$ è semplicemente l'inverso della frequenza di campionamento $f_s$.
+        \[
+            T = \frac{1}{f_s} = \frac{1}{20 \text{ Hz}} = \mathbf{0.05 \text{ s}}
+        \]
+        
+        \item \textbf{Espressione della sequenza discreta $x[n]$}
+        
+        La sequenza si ottiene sostituendo $t = nT$ nell'espressione del segnale originale $x(t) = \cos(8\pi t)$.
+        \[
+            x[n] = x(nT) = \cos(8\pi \cdot nT) = \cos(8\pi \cdot n \cdot 0.05)
+        \]
+        Semplificando l'argomento del coseno:
+        \[
+            x[n] = \cos(8\pi n \cdot \frac{1}{20}) = \cos\left(\frac{8\pi n}{20}\right) = \cos\left(\frac{2\pi n}{5}\right)
+        \]
+        L'espressione della sequenza campionata è quindi:
+        \[
+            x[n] = \cos\left(\frac{2\pi}{5}n\right)
+        \]
+        
+        \item \textbf{Riscrivere $x[n]$ nella forma standard per la DFT}
+        
+        L'obiettivo è far corrispondere l'espressione trovata, $x[n] = \cos(\frac{2\pi}{5}n)$, con la forma standard $A \cos(2\pi \frac{k}{N}n)$. Questo ci permetterà di identificare direttamente la "frequenza discreta" $k$ per la DFT.
+        
+        I dati per la DFT sono:
+        \begin{itemize}
+            \item $N = 10$ (lunghezza della DFT).
+            \item $A = 1$ (ampiezza del coseno).
+        \end{itemize}
+        Dobbiamo trovare un intero $k$ tale che $\frac{k}{N}$ sia uguale al coefficiente di $2\pi n$ nell'argomento del nostro coseno.
+        \[
+            \frac{k}{N} = \frac{1}{5} \implies \frac{k}{10} = \frac{1}{5}
+        \]
+        Risolvendo per $k$:
+        \[
+            k = \frac{10}{5} = 2
+        \]
+        Il valore di $k$ è 2. La sequenza può quindi essere riscritta esattamente nella forma desiderata:
+        \[
+            \mathbf{x[n] = \cos\left(2\pi \frac{2}{10}n\right)}
+        \]
+        Questo ci dice che la sequenza completa un numero intero di cicli (esattamente 2) all'interno della finestra di osservazione di 10 campioni. Questo previene la dispersione spettrale (spectral leakage).
+        
+        \item \textbf{Espressione della DFT a 10 punti}
+        
+        Ora che abbiamo la sequenza nella forma standard, possiamo applicare direttamente la proprietà della DFT per una cosinusoide, come fatto nell'Esercizio 12.
+        
+        La DFT di $A\cos(2\pi \frac{k_0}{N}n)$ è $\frac{AN}{2}(\delta[k-k_0] + \delta[k-(N-k_0)])$.
+        
+        Con i nostri parametri:
+        \begin{itemize}
+            \item $A=1$
+            \item $N=10$
+            \item $k_0=2$
+            \item $N-k_0 = 10-2 = 8$
+        \end{itemize}
+        Calcoliamo l'ampiezza degli impulsi della DFT:
+        \[
+            \frac{AN}{2} = \frac{1 \cdot 10}{2} = 5
+        \]
+        L'espressione della DFT è quindi:
+        \[
+            \mathbf{X_k = 5 \left( \delta[k - 2] + \delta[k - 8] \right)}
+        \]
+        Questo significa che la DFT $X_k$ è nulla ovunque, tranne che per $X_2 = 5$ e $X_8 = 5$.
+    \end{enumerate}
+\end{soluzione}

@@ -1,0 +1,62 @@
+% File: solutions/ex20.tex
+
+\begin{soluzione}{20}
+    \begin{enumerate}
+        \item \textbf{Espressione della sequenza $x_A[n]$}
+        
+        La sequenza $x_A[n]$ si ottiene campionando direttamente il segnale originale $x(t) = \cos(2\pi \cdot 9t)$ con $f_s = 10$ Hz. L'intervallo di campionamento è $T = 1/f_s = 0.1$ s.
+        
+        Sostituendo $t = nT = 0.1n$:
+        \[
+            x_A[n] = x(0.1n) = \cos(2\pi \cdot 9 \cdot 0.1n) = \cos(1.8\pi n)
+        \]
+        Per le proprietà della funzione coseno, che è periodica di periodo $2\pi$, possiamo scrivere:
+        \[
+            \cos(1.8\pi n) = \cos(1.8\pi n - 2\pi n) = \cos(-0.2\pi n)
+        \]
+        Dato che $\cos(-\theta) = \cos(\theta)$, l'espressione finale è:
+        \[
+            \mathbf{x_A[n] = \cos(0.2\pi n)}
+        \]
+        
+        \item \textbf{Espressione del segnale ricostruito $x_R(t)$}
+        
+        Il segnale originale ha una frequenza $f_0 = 9$ Hz. Poiché $f_s = 10$ Hz, la condizione di Nyquist ($f_s \ge 2f_0$) è violata ($10 \text{ Hz} < 18 \text{ Hz}$), quindi avviene aliasing.
+        
+        La frequenza apparente $f_a$ che si osserva nella banda base $[-5, 5]$ Hz è:
+        \[
+            f_a = |f_0 - f_s| = |9 - 10| = 1 \text{ Hz}
+        \]
+        Il filtro di ricostruzione ideale isola questa componente di frequenza aliased. L'ampiezza del coseno ricostruito rimane la stessa dell'originale, poiché il fattore di scala $1/T$ del campionamento viene annullato dal guadagno $T$ del filtro.
+        
+        Il segnale ricostruito è quindi:
+        \[
+            \mathbf{x_R(t) = \cos(2\pi \cdot 1 \cdot t) = \cos(2\pi t)}
+        \]
+        
+        \item \textbf{Espressione della sequenza $x_B[n]$}
+        
+        La sequenza $x_B[n]$ si ottiene campionando il segnale ricostruito $x_R(t)$ con la stessa frequenza $f_s=10$ Hz (e quindi $T=0.1$ s).
+        \[
+            x_B[n] = x_R(nT) = x_R(0.1n) = \cos(2\pi \cdot 0.1n)
+        \]
+        \[
+            \mathbf{x_B[n] = \cos(0.2\pi n)}
+        \]
+        
+        \item \textbf{Confronto tra le sequenze}
+        
+        Confrontando i risultati, vediamo che:
+        \[
+            x_A[n] = \cos(0.2\pi n) \quad \text{e} \quad x_B[n] = \cos(0.2\pi n)
+        \]
+        Le due sequenze sono \textbf{uguali}.
+        
+        \textbf{Spiegazione:} Questo risultato non è una coincidenza. Il processo di ricostruzione ideale crea un segnale tempo-continuo a banda limitata, $x_R(t)$, che è l'unico segnale la cui banda è contenuta in $[-f_s/2, f_s/2]$ e che passa esattamente attraverso i punti di campionamento del segnale originale.
+        
+        In altre parole, la sequenza $x_A[n]$ è l'insieme dei campioni che definiscono univocamente il segnale ricostruito $x_R(t)$. Quando campioniamo nuovamente $x_R(t)$ con lo stesso intervallo di campionamento, stiamo semplicemente "raccogliendo" gli stessi identici punti.
+        
+        Dal punto di vista della frequenza, il campionamento di $x(t)$ (con $f_0=9$ Hz) ha creato una sequenza discreta la cui frequenza apparente è $1$ Hz. La ricostruzione ha materializzato questa frequenza apparente nel segnale continuo $x_R(t)$. Poiché $x_R(t)$ ha ora una banda di soli $1$ Hz, campionarlo a $10$ Hz soddisfa ampiamente la condizione di Nyquist, e non avviene ulteriore aliasing. Il secondo campionamento cattura quindi fedelmente la natura di $x_R(t)$, producendo la sequenza $x_B[n]$ che è, per costruzione, identica a $x_A[n]$.
+        
+    \end{enumerate}
+\end{soluzione}

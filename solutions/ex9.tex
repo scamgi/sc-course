@@ -1,0 +1,48 @@
+% File: solutions/ex9.tex
+
+\begin{soluzione}{9}
+    Per determinare l'espressione di $x_R(t)$, dobbiamo seguire l'intero percorso del segnale: dallo spettro originale, attraverso il campionamento (che introduce scaling e aliasing), fino al filtraggio di ricostruzione.
+
+    \subsubsection*{1. Spettro del Segnale Originale}
+    Come visto nell'esercizio precedente, il segnale $x(t) = \cos(2\pi \cdot 8t)$ ha per trasformata di Fourier:
+    \[
+        X(f) = \frac{1}{2} \left[ \delta(f - 8) + \delta(f + 8) \right]
+    \]
+
+    \subsubsection*{2. Spettro del Segnale Campionato}
+    La frequenza di campionamento è $f_s = 10$ Hz, quindi l'intervallo di campionamento è $T = 1/f_s = 0.1$ s.
+    
+    Lo spettro del segnale campionato, $\tilde{X}(f)$, è una versione periodicizzata e scalata di $X(f)$:
+    \[
+        \tilde{X}(f) = \frac{1}{T} \sum_{k=-\infty}^{\infty} X(f - k f_s) = 10 \sum_{k=-\infty}^{\infty} \frac{1}{2} \left[ \delta(f - 8 - 10k) + \delta(f + 8 - 10k) \right]
+    \]
+    Questo crea un treno infinito di impulsi. Come determinato nell'esercizio 8, gli impulsi che cadono nella banda base $[-5 \text{ Hz}, 5 \text{ Hz}]$ sono quelli a $f=+2$ Hz (generato dall'impulso a $-8$ Hz per $k=1$) e a $f=-2$ Hz (generato dall'impulso a $+8$ Hz per $k=1$).
+    
+    L'ampiezza (o meglio, il peso) di ciascuno di questi impulsi in $\tilde{X}(f)$ è $\frac{1}{T} \cdot \frac{A}{2} = 10 \cdot \frac{1}{2} = 5$.
+    
+    \subsubsection*{3. Filtraggio e Spettro Ricostruito}
+    Il segnale viene ricostruito con un filtro passa-basso ideale $H_R(f)$ con guadagno $T=0.1$ e frequenza di taglio $f_c = f_s/2 = 5$ Hz.
+    
+    Lo spettro del segnale ricostruito, $X_R(f)$, si ottiene moltiplicando $\tilde{X}(f)$ per $H_R(f)$. Questa operazione isola solo gli impulsi all'interno della banda $[-5, 5]$ Hz e ne riscala l'ampiezza per il guadagno del filtro $T$:
+    \begin{align*}
+        X_R(f) &= \left( 5 \cdot \delta(f - 2) + 5 \cdot \delta(f + 2) \right) \cdot H_R(f) \\
+        &= \left( 5 \cdot \delta(f - 2) + 5 \cdot \delta(f + 2) \right) \cdot 0.1 \\
+        &= 0.5 \cdot \delta(f - 2) + 0.5 \cdot \delta(f + 2) \\
+        &= \frac{1}{2} \left[ \delta(f - 2) + \delta(f + 2) \right]
+    \end{align*}
+    
+    \subsubsection*{4. Segnale Ricostruito nel Tempo}
+    L'espressione di $X_R(f)$ è la trasformata di Fourier di un segnale cosinusoidale. Per antitrasformarla, la confrontiamo con la forma generale $\frac{A'}{2}[\delta(f-f_a) + \delta(f+f_a)]$.
+    
+    Dal confronto, identifichiamo:
+    \begin{itemize}
+        \item La nuova ampiezza $A' = 1$.
+        \item La nuova frequenza (aliased) $f_a = 2$ Hz.
+    \end{itemize}
+    Il segnale ricostruito nel tempo è quindi:
+    \[
+        \mathbf{x_R(t) = \cos(2\pi \cdot 2t) = \cos(4\pi t)}
+    \]
+    Come previsto, il segnale ricostruito è una cosinusoide con la frequenza aliased di 2 Hz. In questo caso specifico, l'ampiezza è rimasta invariata, ma ciò non è sempre vero.
+    
+\end{soluzione}

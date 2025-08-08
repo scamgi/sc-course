@@ -1,0 +1,38 @@
+% File: solutions/ex2.tex
+
+\begin{soluzione}{2}
+    Questo esercizio ripassa le tre coppie di trasformate di Fourier più importanti per la teoria dei segnali.
+
+    \begin{itemize}
+        \item \textbf{Segnale Rettangolare: $x_1(t) = A \cdot \text{rect}\left(\frac{t}{T}\right)$}
+        
+        La trasformata di un segnale rettangolare nel tempo è una funzione seno cardinale (sinc) in frequenza. Il segnale rettangolare ha ampiezza $A$ e durata totale $T$ (da $-T/2$ a $T/2$).
+        
+        La sua trasformata di Fourier è:
+        \[
+            \mathbf{X_1(f) = A T \cdot \text{sinc}(fT)}
+        \]
+        Dove la funzione seno cardinale normalizzata è definita come $\text{sinc}(x) = \frac{\sin(\pi x)}{\pi x}$. L'ampiezza della trasformata a $f=0$ è $AT$.
+        
+        \item \textbf{Segnale Seno Cardinale: $x_2(t) = A \cdot \text{sinc}(2Bt)$}
+        
+        Per la proprietà di dualità della trasformata di Fourier, la trasformata di una funzione sinc nel tempo è una funzione rettangolare in frequenza. Questo rappresenta un segnale tempo-continuo con banda limitata ideale.
+        
+        La sua trasformata di Fourier è:
+        \[
+            \mathbf{X_2(f) = \frac{A}{2B} \cdot \text{rect}\left(\frac{f}{2B}\right)}
+        \]
+        Il risultato è un segnale rettangolare nel dominio della frequenza, di ampiezza $\frac{A}{2B}$ e con una banda totale di $2B$ (ovvero, non nullo solo per frequenze $|f| < B$).
+        
+        \item \textbf{Segnale Coseno: $x_3(t) = A \cdot \cos(2\pi f_0 t)$}
+        
+        La trasformata di un segnale sinusoidale puro, che si estende per tutto il tempo, è concentrata unicamente alla sua frequenza. Utilizzando l'identità di Eulero, $\cos(\theta) = \frac{1}{2}(e^{j\theta} + e^{-j\theta})$, e la proprietà di traslazione in frequenza.
+        
+        La sua trasformata di Fourier è composta da due impulsi di Dirac:
+        \[
+            \mathbf{X_3(f) = \frac{A}{2} \left[ \delta(f - f_0) + \delta(f + f_0) \right]}
+        \]
+        Questo significa che l'energia del segnale è interamente localizzata alle frequenze $+f_0$ e $-f_0$. L'area (o "peso") di ciascun impulso è $A/2$.
+
+    \end{itemize}
+\end{soluzione}
