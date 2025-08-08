@@ -1,0 +1,64 @@
+% --- Codifica e Lingua ---
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[italian]{babel}
+
+% --- Gestione della pagina ---
+\usepackage[a4paper, margin=2.5cm]{geometry}
+
+% --- Pacchetti per la Matematica ---
+\usepackage{amsmath}   % Funzionalità matematiche avanzate
+\usepackage{amssymb}   % Simboli matematici
+\usepackage{amsfonts}  % Font matematici
+
+% --- Grafica e Colori ---
+\usepackage{graphicx}  % Per includere immagini
+\usepackage{xcolor}    % Per usare i colori
+
+% --- Intestazioni e Piè di pagina ---
+\usepackage{fancyhdr}
+\pagestyle{fancy}
+\fancyhf{} % Pulisce tutte le intestazioni e i piè di pagina
+\fancyhead[L]{Corso di Preparazione - Segnali per le Comunicazioni}
+\fancyfoot[C]{\thepage}
+\renewcommand{\headrulewidth}{0.4pt}
+\renewcommand{\footrulewidth}{0.4pt}
+
+% --- Pacchetti per la strutturazione del documento ---
+% pgffor ci permette di usare il comodo ciclo \foreach in main.tex
+\usepackage{pgffor} 
+
+% --- Collegamenti ipertestuali ---
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=blue,
+    filecolor=magenta,      
+    urlcolor=cyan,
+    pdftitle={Eserciziario di Segnali},
+    pdfpagemode=FullScreen,
+}
+
+% --- Definizioni di ambienti personalizzati (Opzionale ma raccomandato) ---
+% Per una formattazione consistente
+\usepackage{amsthm}
+\usepackage{framed}
+
+% Stile per gli esercizi
+\theoremstyle{definition}
+\newtheorem{esercizioinner}{Esercizio}
+
+% Stile per le soluzioni
+\theoremstyle{plain}
+\newtheorem{soluzioneinner}{Soluzione Esercizio}
+
+
+% Ambiente riquadrato per gli esercizi
+\newenvironment{esercizio}[1]
+  {\begin{esercizioinner}[#1]\begin{leftbar}}
+  {\end{leftbar}\end{esercizioinner}}
+
+% Ambiente riquadrato per le soluzioni
+\newenvironment{soluzione}[1]
+  {\begin{soluzioneinner}[#1]\begin{framed}}
+  {\end{framed}\end{soluzioneinner}}

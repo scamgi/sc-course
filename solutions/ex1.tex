@@ -1,0 +1,19 @@
+% File: solutions/ex1.tex
+
+\begin{soluzione}{1}
+    La relazione tra il segnale continuo e la sequenza campionata è $x[n] = x(nT)$.
+    Sostituendo l'espressione di $x(t)$ e $T=0.5s$:
+    \[
+        x[n] = x(n \cdot 0.5) = 2(0.5n) + 1 = n + 1
+    \]
+    Questa espressione è valida per $n \ge 0$.
+    
+    Calcoliamo i primi 5 campioni:
+    \begin{itemize}
+        \item $x[0] = 0 + 1 = 1$
+        \item $x[1] = 1 + 1 = 2$
+        \item $x[2] = 2 + 1 = 3$
+        \item $x[3] = 3 + 1 = 4$
+        \item $x[4] = 4 + 1 = 5$
+    \end{itemize}
+\end{soluzione}

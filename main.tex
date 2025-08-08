@@ -1,0 +1,49 @@
+\documentclass[11pt, a4paper]{article}
+
+% Includi il preambolo con tutti i pacchetti e le impostazioni
+\input{preamble.tex}
+
+% --- Informazioni del documento ---
+\title{
+    \Huge Eserciziario di Segnali per le Comunicazioni\\[1cm]
+    \normalsize Preparazione all'Esame
+}
+\author{Giacomo Scampini}
+\date{\today}
+
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty} % Nessuna intestazione/piè di pagina sulla pagina del titolo
+
+\newpage
+\tableofcontents % Indice dei contenuti
+\newpage
+
+% ===================================================
+% PRIMA PARTE: TESTI DEGLI ESERCIZI
+% ===================================================
+\part{Testi degli Esercizi}
+\pagestyle{fancy} % Applica lo stile definito nel preambolo
+
+% Ciclo per includere tutti i file degli esercizi da problems/ex1.tex a problems/ex25.tex
+\foreach \n in {1,...,25}{
+    \input{problems/ex\n.tex}
+    \vspace{1cm} % Aggiunge spazio tra gli esercizi
+}
+
+
+\newpage
+% ===================================================
+% SECONDA PARTE: SOLUZIONI
+% ===================================================
+\part{Soluzioni degli Esercizi}
+
+% Ciclo per includere tutti i file delle soluzioni da solutions/ex1.tex a solutions/ex25.tex
+\foreach \n in {1,...,25}{
+    \input{solutions/ex\n.tex}
+    \vspace{1cm} % Aggiunge spazio tra le soluzioni
+}
+
+\end{document}
