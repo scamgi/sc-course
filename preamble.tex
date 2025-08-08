@@ -27,10 +27,9 @@
 \renewcommand{\footrulewidth}{0.4pt}
 
 % --- Pacchetti per la strutturazione del documento ---
-% pgffor ci permette di usare il comodo ciclo \foreach in main.tex
 \usepackage{pgffor} 
 \usepackage{pgfplots}
-\pgfplotsset{compat=1.18} % O la versione che stai usando
+\pgfplotsset{compat=1.18}
 
 % --- Collegamenti ipertestuali ---
 \usepackage{hyperref}
@@ -43,10 +42,9 @@
     pdfpagemode=FullScreen,
 }
 
-% --- Definizioni di ambienti personalizzati (Opzionale ma raccomandato) ---
-% Per una formattazione consistente
+% --- Definizioni di ambienti personalizzati ---
 \usepackage{amsthm}
-\usepackage{framed}
+\usepackage{framed} % Fornisce l'ambiente leftbar
 
 % Stile per gli esercizi
 \theoremstyle{definition}
@@ -56,11 +54,10 @@
 \theoremstyle{plain}
 \newtheorem{soluzioneinner}{Soluzione Esercizio}
 
-
-% Ambiente riquadrato per gli esercizi
+% Ambiente corretto per gli esercizi con una barra a sinistra
 \newenvironment{esercizio}[1]
-  {\begin{esercizioinner}[#1]\begin{leftbar}}
-  {\end{leftbar}\end{esercizioinner}}
+  {\begin{leftbar}\begin{esercizioinner}[#1]}
+  {\end{esercizioinner}\end{leftbar}}
 
 % Ambiente riquadrato per le soluzioni
 \newenvironment{soluzione}[1]
