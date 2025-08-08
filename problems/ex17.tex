@@ -1,0 +1,15 @@
+% File: problems/ex17.tex
+
+\begin{esercizio}{Analisi Grafica in Frequenza Normalizzata}
+    La trasformata di Fourier di una sequenza tempo-discreto $x[n]$ è data da:
+    \[
+        \tilde{X}(\nu) = \sum_{k=-\infty}^{\infty} \left( \delta(\nu - 0.4 - k) + \delta(\nu + 0.4 - k) \right)
+    \]
+    Questa sequenza è stata ottenuta campionando un segnale tempo-continuo $x(t) = 2\cos(2\pi f_0 t)$ con una frequenza di campionamento $f_s=50$ Hz.
+    
+    \begin{enumerate}
+        \item Qual era la frequenza $f_0$ del segnale originale?
+        \item Spiegare se il fenomeno dell'aliasing è avvenuto e perché.
+        \item Quale segnale $x_R(t)$ si otterrebbe applicando un filtro passa-basso ideale con banda da $-f_s/2$ a $f_s/2$?
+    \end{enumerate}
+\end{esercizio}

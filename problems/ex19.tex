@@ -1,0 +1,12 @@
+% File: problems/ex19.tex
+
+\begin{esercizio}{Operazioni sulla DFT}
+    Sia data la sequenza $x[n] = 2\cos\left(2\pi \frac{2}{8}n\right)$ per $0 \le n \le 7$. La sua DFT a 8 punti è $X_k$.
+    
+    Si costruisce una nuova DFT, $Y_k$, annullando il campione $X_2$ della DFT originale:
+    \[
+        Y_k = X_k - X_2 \cdot \delta[k-2]
+    \]
+    
+    Determinare l'espressione della sequenza nel tempo $y[n]$ corrispondente alla DFT $Y_k$.
+\end{esercizio}

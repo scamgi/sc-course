@@ -1,0 +1,17 @@
+% File: problems/ex21.tex
+
+\begin{esercizio}{Simulazione Esame - Tipo 1 (Ricostruzione con Aliasing)}
+    Sia dato il segnale tempo-continuo:
+    \[
+        x(t) = \frac{\sin(4\pi t)}{\pi t} \cdot \cos(20\pi t)
+    \]
+    (Ricorda che $\frac{\sin(At)}{\pi t} = A \cdot \text{sinc}(At)$)
+    
+    Il segnale viene campionato con una frequenza di campionamento $f_s = 21$ Hz.
+    
+    \begin{enumerate}
+        \item Disegnare il grafico dello spettro del segnale originale, $X(f)$.
+        \item Disegnare il grafico dello spettro del segnale campionato, $\tilde{X}(f)$, evidenziando l'eventuale aliasing.
+        \item Calcolare l'espressione analitica dello spettro ricostruito $X_R(f)$ e, di conseguenza, l'espressione del segnale ricostruito $x_R(t)$.
+    \end{enumerate}
+\end{esercizio}

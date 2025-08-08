@@ -1,0 +1,18 @@
+% File: problems/ex6.tex
+
+\begin{esercizio}{Visualizzare l'Aliasing}
+    Si consideri nuovamente il segnale $x(t)$ dell'Esercizio 4, con una trasformata di Fourier a forma di triangolo, nulla per $|f| > 100$ Hz:
+    \[
+        X(f) = 
+        \begin{cases} 
+            1 - \frac{|f|}{100} & \text{se } |f| \leq 100 \text{ Hz} \\
+            0 & \text{altrimenti}
+        \end{cases}
+    \]
+    Questa volta, il segnale viene campionato con una frequenza di campionamento $f_s = 150$ Hz.
+    
+    \begin{enumerate}
+        \item Spiegare perché questa frequenza di campionamento introduce aliasing.
+        \item Disegnare un grafico qualitativo dello spettro del segnale campionato, $\tilde{X}(f)$, nell'intervallo di frequenze da $-200$ Hz a $200$ Hz, mostrando chiaramente la sovrapposizione tra le repliche spettrali.
+    \end{enumerate}
+\end{esercizio}
