@@ -19,7 +19,7 @@
 % --- Intestazioni e Piè di pagina ---
 \usepackage{fancyhdr}
 \pagestyle{fancy}
-\setlength{\headheight}{14pt} % Aumentato per risolvere il warning
+\setlength{\headheight}{14pt}
 \fancyhf{} % Pulisce tutte le intestazioni e i piè di pagina
 \fancyhead[L]{Corso di Preparazione - Segnali per le Comunicazioni}
 \fancyfoot[C]{\thepage}
@@ -44,20 +44,23 @@
 
 % --- Definizioni di ambienti personalizzati ---
 \usepackage{amsthm}
-\usepackage{framed} % Fornisce l'ambiente leftbar
+\usepackage{framed}
 
-% Stile per gli esercizi
-\theoremstyle{definition}
-\newtheorem{esercizioinner}{Esercizio}
-
-% Stile per le soluzioni
+% Stile per le soluzioni (amsthm works fine with framed here)
 \theoremstyle{plain}
 \newtheorem{soluzioneinner}{Soluzione Esercizio}
 
-% Ambiente corretto per gli esercizi con una barra a sinistra
-\newenvironment{esercizio}[1]
-  {\begin{leftbar}\begin{esercizioinner}[#1]}
-  {\end{esercizioinner}\end{leftbar}}
+% Manual definition for 'esercizio' to avoid amsthm/framed conflict
+\newcounter{esercizio}
+\newenvironment{esercizio}[1]%
+{%
+    \refstepcounter{esercizio}%
+    \begin{leftbar}%
+    \noindent\textbf{Esercizio \theesercizio: #1}\par\nobreak\vspace{\topsep}%
+}%
+{%
+    \end{leftbar}%
+}
 
 % Ambiente riquadrato per le soluzioni
 \newenvironment{soluzione}[1]
