@@ -1,8 +1,6 @@
 % File: solutions/ex7.tex
-
 \begin{soluzione}{7}
     L'obiettivo è determinare la forma dello spettro $X_R(f)$ dopo che lo spettro campionato con aliasing, $\tilde{X}(f)$, è stato processato da un filtro passa-basso ideale.
-    
     \subsubsection*{1. Definizione dello Spettro Ricostruito}
     Lo spettro ricostruito è dato dal prodotto:
     \[
@@ -19,6 +17,7 @@
     Questo significa che $X_R(f)$ sarà uguale a $\tilde{X}(f)$ per $|f| \le 75$ Hz, e zero altrove. Dobbiamo quindi calcolare la forma di $\tilde{X}(f)$ in questo intervallo.
 
     \subsubsection*{2. Analisi delle Componenti Sovrapposte}
+    {\sloppy
     Nella banda $|f| \le 75$ Hz, contribuiscono due repliche spettrali:
     \begin{enumerate}
         \item \textbf{La replica centrale (k=0):} Contribuisce con l'espressione $150 \cdot X(f) = 150 \left(1 - \frac{|f|}{100}\right)$.
@@ -28,10 +27,10 @@
                 \item Per $f < 0$, la replica di destra non contribuisce, ma quella di sinistra (centrata a -150 Hz) contribuisce nell'intervallo $[-75, -50]$ Hz. La sua espressione è $150 \cdot X(f+150) = 150 \left(1 - \frac{|f+150|}{100}\right)$.
             \end{itemize}
     \end{enumerate}
+    }
     
     \subsubsection*{3. Calcolo dell'Espressione Analitica}
     Dividiamo il calcolo in due regioni, data la simmetria.
-    
     \textbf{Regione A: $0 \le f < 50$ Hz}
     In questa regione, solo la replica centrale contribuisce.
     \[
@@ -51,6 +50,7 @@
         &= 150 \left[ 1 - \frac{f}{100} + 1 - 1.5 + \frac{f}{100} \right] \\
         &= 150 \left[ 2 - 1.5 \right] = 150 \cdot 0.5 = 75
     \end{align*}
+    
     Lo spettro in questa regione è costante e vale 75.
 
     Mettendo insieme i pezzi, l'espressione completa per $X_R(f)$ è:
